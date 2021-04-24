@@ -1,24 +1,56 @@
-# README
+# DB 設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users table
 
-Things you may want to cover:
+| Column                | Type                | Options                 |
+|-----------------------|---------------------|-------------------------|
+| nickname              | string              | null: false             |
+| email                 | string              | null: false             |
+| password              | string              | null: false             |
+| password_confirmation | string              | null: false             |
+| last_name             | string              | null: false             |
+| first_name            | string              | null: false             |
+| last_name_kana        | string              | null: false             |
+| first_name_kana       | string              | null: false             |
+| birth_year            | string              | null: false             |
+| birth_month           | string              | null: false             |
+| birth_date            | string              | null: false             |
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+### Association
 
-* Database creation
+* has_many :items dependent: :destroy
+* has_one  :buyer
+* has_one  :credit_card
 
-* Database initialization
 
-* How to run the test suite
+## items table
 
-* Services (job queues, cache servers, search engines, etc.)
+| Column                              | Type       | Options           |
+|-------------------------------------|------------|-------------------|
+| name                                | string     | null: false       |
+| price                               | string     | null: false       |
+| text                                | text       | null: false       |
+| category                            | string     | null: false       |
+| status                              | string     | null: false       |
+| delivery_charge                     | string     | null: false       |
+| shipping_area                       | string     | null: false       |
+| shipping_date                       | string     | null: false       |
 
-* Deployment instructions
+### Association
 
-* ...
+- belongs_to :user
+
+
+## credit_cards table
+
+| Column          | Type       | Options                        |
+|-----------------|------------|--------------------------------|
+| user_id         | reference  | null: false, foreign_key: true |
+| buyer_id        | string     | null: false                    |
+| credit_card_id  | references | null: false                    |
+
+### Association
+
+- belongs_to :user
