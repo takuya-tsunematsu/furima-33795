@@ -18,7 +18,6 @@
 
 * has_many :items dependent: :destroy
 * has_many :purchases
-* has_one  :credit_card
 
 
 ## items table
@@ -69,15 +68,3 @@
 ### Association
 
 - belongs_to :purchase
-
-
-## credit_cards table
-
-| Column          | Type       | Options                        |
-|-----------------|------------|--------------------------------|
-| user            | reference  | null: false, foreign_key: true |
-| credit_card     | reference  | null: false                    |
-
-### Association
-
-- belongs_to :user
