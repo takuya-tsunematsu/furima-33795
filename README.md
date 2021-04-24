@@ -31,9 +31,9 @@
 | category_id                         | integer    | null: false                    |
 | status_id                           | integer    | null: false                    |
 | delivery_charge_id                  | integer    | null: false                    |
-| shipping_area_id                    | integer    | null: false                    |
+| prefecture_id                       | integer    | null: false                    |
 | shipping_date_id                    | integer    | null: false                    |
-| user_id                             | reference  | null: false, foreign_key: true |
+| user                                | reference  | null: false, foreign_key: true |
 
 ### Association
 
@@ -59,12 +59,12 @@
 | Column          | Type       | Options                        |
 |-----------------|------------|--------------------------------|
 | post_code       | string     | null: false                    |
-| prefecture      | string     | null: false                    |
+| prefecture_id   | integer    | null: false                    |
 | city            | string     | null: false                    |
 | address         | string     | null: false                    |
-| building_name   | string     | null: false                    |
+| building_name   | string     |                                |
 | phone_number    | string     | null: false                    |
-| purchase_id     | reference  | null: false, foreign_key: true |
+| purchase        | reference  | null: false, foreign_key: true |
 
 ### Association
 
