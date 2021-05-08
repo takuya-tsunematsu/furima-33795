@@ -52,15 +52,65 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
       end
-      it '販売価格が¥300~¥9,999,999の間でないと出品できない' do
-        @item.price = 200
+      it '商品価格が299円以下では出品できない' do
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include "Price Out of setting range"
       end
-      it '販売価格は半角数字でないと出品できない' do
+      it '商品価格が10_000_000円以上では出品できない' do
+        @item.price = 100000000
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price Out of setting range"
+      end
+      it '商品価格が半角英数字混合では出品できない' do
+        @item.price = "aaa000"
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price Out of setting range"
+      end
+      it '商品価格が半角英字のみでは出品できない' do
+        @item.price = "aaaaaa"
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price Out of setting range"
+      end
+      it '商品価格が全角文字では出品できない' do
         @item.price = "３００"
         @item.valid?
         expect(@item.errors.full_messages).to include "Price Out of setting range"
+      end 
+      it 'ユーザーが紐付いていないと出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include "User must exist"
+      end
+      it 'imageが空では出品できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Image can't be blank"
+      end
+      it 'カテゴリーのidに1が選択されていれば出品できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Category Select"
+      end
+      it '商品の状態のidに1が選択されていれば出品できない' do
+        @item.status_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Status Select"
+      end
+      it '配送料の負担のidに1が選択されていれば出品できない' do
+        @item.delivery_charge_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Delivery charge Select"
+      end
+      it '発送元の地域のidに1が選択されていれば出品できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Prefecture Select"
+      end
+      it '発送までの日数のidに1が選択されていれば出品できない' do
+        @item.shipping_date_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Shipping date Select"
       end
     end
   end
