@@ -39,7 +39,7 @@
 - belongs_to :user
 - has_one    :purchase
 
-## purchases table
+## orders table
 
 | Column          | Type       | Options                        |
 |-----------------|------------|--------------------------------|
