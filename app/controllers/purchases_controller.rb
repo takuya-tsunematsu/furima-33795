@@ -10,13 +10,9 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
-      customer = Payjp::Customer.create(
-        description: 'test', 
-        card: purchase_params[:card_token] 
-      )
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
+      card_params
       @purchase_address.save
       redirect_to root_path
     else
@@ -39,4 +35,11 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
+  def card_params
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+      customer = Payjp::Customer.create(
+        description: 'test', 
+        card: purchase_params[:card_token] 
+      )
+  end
 end

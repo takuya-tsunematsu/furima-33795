@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe PurchaseAddress, type: :model do
   before do
     @purchase_address = FactoryBot.build(:purchase_address)
-    @purchase_address.user_id = FactoryBot.create(:user)
-    @purchase_address.item_id = FactoryBot.create(:item)
+    @user = FactoryBot.create(:user)
+    @purchase_address.user_id = @user.id
+    @item = FactoryBot.create(:item)
+    @purchase_address.item_id = @item.id
     sleep(2)
   end
 
@@ -42,7 +44,7 @@ RSpec.describe PurchaseAddress, type: :model do
       expect(@purchase_address.errors.full_messages).to include "Prefecture Select"
     end
     it 'prefecture_idが1では登録できない' do
-      @purchase_address.prefecture_id = "1"
+      @purchase_address.prefecture_id = 1
       @purchase_address.valid?
       expect(@purchase_address.errors.full_messages).to include "Prefecture Select"
     end
