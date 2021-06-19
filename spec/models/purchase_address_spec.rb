@@ -14,6 +14,11 @@ RSpec.describe PurchaseAddress, type: :model do
   end
 
   context '商品購入できないとき' do
+    it 'card_tokenがないと購入できない' do
+      @purchase_address.card_token = ""
+      @purchase_address.valid?
+      expect(@purchase_address.errors.full_messages).to include "Card token can't be blank"
+    end
     it 'postal_codeがないと購入できない' do
       @purchase_address.postal_code =""
       @purchase_address.valid?
@@ -52,7 +57,6 @@ RSpec.describe PurchaseAddress, type: :model do
     it 'phone_numberが文字では購入できない' do
       @purchase_address.phone_number = "あああああああああああ"
       @purchase_address.valid?
-      binding.pry
       expect(@purchase_address.errors.full_messages).to include "Phone number Input only number"
     end
   end
