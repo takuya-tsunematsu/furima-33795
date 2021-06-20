@@ -30,4 +30,4 @@ const pay = () => {
   });
 };
 
-window.addEventListener("load", pay);gyazo
+window.addEventListener("load", pay);
